@@ -26,7 +26,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: executable-Linux
-          path: dist/comprova_desplegaments
+          path: |
+            dist-linux/comprova_desplegaments
+            dist-linux/comprova-desplegaments.spec
 
   build-windows:
     runs-on: windows-latest
@@ -49,7 +51,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: executable-Windows
-          path: dist/comprova_desplegaments.exe
+          path: |
+            dist-win/comprova_desplegaments.exe
+            dist-win/comprova_desplegaments.spec
 
   build-macos:
     runs-on: macos-latest
@@ -72,5 +76,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: executable-macOS
-          path: dist/comprova_desplegaments
-
+          path: |
+            dist-mac/comprova_desplegaments
+            dist-mac/comprova_desplegaments.spec
