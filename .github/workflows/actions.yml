@@ -52,10 +52,15 @@ jobs:
         run: pyinstaller --onefile comprova_desplegaments.py
 
       - name: Organitzar fitxers
+        shell: pwsh
         run: |
-          mkdir -p dist-win
-          cp dist/comprova_desplegaments.exe dist-win/
-          cp comprova_desplegaments.spec dist-win/
+          New-Item -ItemType Directory -Path dist-win -Force
+          Copy-Item dist/comprova_desplegaments.exe dist-win/
+          Copy-Item comprova_desplegaments.spec dist-win/
+          #Con cmd:
+          #if not exist dist-win mkdir dist-win
+          #copy dist\comprova_desplegaments.exe dist-win\
+          #copy comprova_desplegaments.spec dist-win\
 
       - name: Guardem executable Windows
         uses: actions/upload-artifact@v4
