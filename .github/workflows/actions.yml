@@ -112,7 +112,13 @@ jobs:
         run: chmod +x dist-linux/comprova_desplegaments
 
       - name: Comprovar funcionament
+        id: execucio
         run: ./dist-linux/comprova_desplegaments https://example.com
+
+
+      - name: Mostrar error si falla el test
+        if: ${{steps.execucio.outcome=='failure'}}
+        run: echo "Ha fallat el test de Linux"
 
   test-windows:
     needs: build-windows
@@ -127,8 +133,13 @@ jobs:
           path: dist-win
 
       - name: Comprovar funcionament
+        id: execucio
         shell: pwsh #especificas el shell: cmd o pwsh(powershell)
         run: .\dist-win\comprova_desplegaments.exe https://example.com #cmd -> dist-win\comprova_desplegaments.exe url | opcional -> .\
+
+      - name: Mostrar error si falla el test
+        if: ${{steps.execucio.outcome=='failure'}}
+        run: echo "Ha fallat el test de Windows"
 
 
   test-macos:
@@ -146,5 +157,10 @@ jobs:
         run: chmod +x dist-mac/comprova_desplegaments
 
       - name: Comprovar funcionament
+        id: execucio
         run: ./dist-mac/comprova_desplegaments https://example.com
+
+      - name: Mostrar error si falla el test
+        if: ${{steps.execucio.outcome=='failure'}}
+        run: echo "Ha fallat el test de macOS"
 
