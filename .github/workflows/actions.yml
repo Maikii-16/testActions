@@ -160,7 +160,9 @@ jobs:
       - name: Comprovar funcionament
         id: execucio
         continue-on-error: true
-        run: ./dist-mac/comprova_desplegaments https://example.com
+        run: |
+          ./dist-mac/comprova_desplegaments https://example.com
+          exit 1
 
       - name: Mostrar error si falla el test
         if: ${{steps.execucio.outcome=='failure'}}
