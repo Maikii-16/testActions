@@ -133,7 +133,7 @@ jobs:
 
   test-macos:
     needs: build-macos
-    runs.on: macos-latest
+    runs-on: macos-latest
 
     steps:
       - name: Descarregar executable
