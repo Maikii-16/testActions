@@ -91,3 +91,55 @@ jobs:
         with:
           name: executable-macOS
           path: dist-mac/
+
+  test-linux:
+    needs: build-linux
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descarregar executable
+        uses: actions/download-artifact@v4
+        with:
+          name: executable-Linux
+          path: dist-linux
+
+      - name: Donar permissos de execucio
+        run: chmod +x dist-linux/comprova_desplegaments
+
+      - name: Comprovar funcionament
+        run: ./dist-linux/comprova_desplegaments https://example.com
+
+  test-windows:
+    needs: build-windows
+    runs-on: windows-latest
+
+    #No fa falta permisos en windows
+    steps:
+      - name: Descarregar executable
+        uses: actions/download-artifact@v4
+        with:
+          name: executable-Windows
+          path: dist-win
+
+      - name: Comprovar funcionament
+        shell: pwsh #especificas el shell: cmd o pwsh(powershell)
+        run: .\dist-win\comprova_desplegaments.exe https://example.com #cmd -> dist-win\comprova_desplegaments.exe url | opcional -> .\
+
+
+  test-macos:
+    needs: build-macos
+    runs.on: macos-latest
+
+    steps:
+      - name: Descarregar executable
+        uses: actions/download-artifact@v4
+        with:
+          name: executable-macOS
+          path: dist-mac
+
+      - name: Donar permissos de execucio
+        run: chmod +x dist-mac/comprova_desplegaments
+
+      - name: Comprovar funcionament
+        run: ./dist-mac/comprova_desplegaments https://example.com
+
