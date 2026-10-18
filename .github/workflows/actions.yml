@@ -22,13 +22,17 @@ jobs:
       - name: Empaquetem el executable
         run: pyinstaller --onefile comprova_desplegaments.py
 
+      - name: Organitzar ftxers
+        run: |
+          mkdir -p dist-linux
+          cp dist/comprova_desplegaments dist-linux/
+          cp comprova_desplegaments.spec dist-linux/
+
       - name: Guardem executable Linux
         uses: actions/upload-artifact@v4
         with:
           name: executable-Linux
-          path: |
-            dist-linux/comprova_desplegaments
-            dist-linux/comprova-desplegaments.spec
+          path: dist-linux/
 
   build-windows:
     runs-on: windows-latest
@@ -47,13 +51,17 @@ jobs:
       - name: Empaquetem el executable
         run: pyinstaller --onefile comprova_desplegaments.py
 
+      - name: Organitzar fitxers
+        run: |
+          mkdir -p dist-win
+          cp dist/comprova_desplegaments.exe dist-win/
+          cp comprova_desplegaments.spec dist-win/
+
       - name: Guardem executable Windows
         uses: actions/upload-artifact@v4
         with:
           name: executable-Windows
-          path: |
-            dist-win/comprova_desplegaments.exe
-            dist-win/comprova_desplegaments.spec
+          path: dist-win/
 
   build-macos:
     runs-on: macos-latest
@@ -72,10 +80,14 @@ jobs:
       - name: Empaquetem el executable
         run: pyinstaller --onefile comprova_desplegaments.py
 
+      - name: Organitzar fitxers
+        run: |
+          mkdir -p dist-mac
+          cp dist/comprova_desplegaments dist-mac/
+          cp comprova_desplegaments.spec dist-mac/
+
       - name: Guardem executable macOS
         uses: actions/upload-artifact@v4
         with:
           name: executable-macOS
-          path: |
-            dist-mac/comprova_desplegaments
-            dist-mac/comprova_desplegaments.spec
+          path: dist-mac/
